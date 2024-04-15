@@ -7,7 +7,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import App from './App';
 import theme from './theme';
 
-const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
+const root = ReactDOM.createRoot(document.getElementById('root')!);
 
 root.render(
   <ThemeProvider theme={theme}>
@@ -17,5 +17,5 @@ root.render(
         <CssBaseline />
       </BrowserRouter>
     </LocalizationProvider>
-  </ThemeProvider>
+  </ThemeProvider>,
 );

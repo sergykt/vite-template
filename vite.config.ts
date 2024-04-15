@@ -1,17 +1,13 @@
-import { defineConfig, splitVendorChunkPlugin } from 'vite';
+import { defineConfig } from 'vite';
 import path from 'path';
 import react from '@vitejs/plugin-react';
 import { ViteImageOptimizer } from 'vite-plugin-image-optimizer';
 import autoprefixer from 'autoprefixer';
-import browserslistToEsbuild from 'browserslist-to-esbuild';
-// import legacy from '@vitejs/plugin-legacy';
-// import UnpluginInjectPreload from 'unplugin-inject-preload/vite';
 
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
     react(),
-    splitVendorChunkPlugin(),
     ViteImageOptimizer({
       includePublic: true,
       png: {
@@ -27,9 +23,6 @@ export default defineConfig({
         lossless: true,
       },
     }),
-    // legacy({
-    //   targets: ['defaults', 'not IE 11'],
-    // }),
   ],
   css: {
     postcss: {
@@ -43,34 +36,59 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
-      '@components': path.resolve(__dirname, '/src/components'),
-      '@pages': path.resolve(__dirname, '/src/pages'),
-      '@assets': path.resolve(__dirname, '/src/assets'),
     },
   },
   build: {
-    target: browserslistToEsbuild(),
+    minify: 'terser',
+    rollupOptions: {
+      output: {
+        manualChunks(id: string) {
+          if (
+            id.includes('react-router-dom') ||
+            id.includes('react-icons') ||
+            id.includes('formik')
+          ) {
+            return '@react-tools';
+          }
+          if (id.includes('@mui/icons-material')) {
+            return '@mui/icons-material';
+          }
+          if (id.includes('@mui/material')) {
+            return '@mui/material';
+          }
+          if (id.includes('@mui/x-date-pickers')) {
+            return '@mui/x-date-pickers';
+          }
+          if (id.includes('axios')) {
+            return '@axios';
+          }
+          if (id.includes('mobx')) {
+            return '@mobx';
+          }
+        },
+      },
+    },
   },
   server: {
-    port: 3003,
-    // proxy: {
-    //   '/api': {
-    //     target: 'http://localhost:8000',
-    //     changeOrigin: true,
-    //     secure: false,
-    //     ws: true,
-    //     configure: (proxy, _options) => {
-    //       proxy.on('error', (err, _req, _res) => {
-    //         console.log('proxy error', err);
-    //       });
-    //       proxy.on('proxyReq', (proxyReq, req, _res) => {
-    //         console.log('Sending Request to the Target:', req.method, req.url);
-    //       });
-    //       proxy.on('proxyRes', (proxyRes, req, _res) => {
-    //         console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
-    //       });
-    //     },
-    //   },
-    // },
+    port: 3010,
+    proxy: {
+      '/api': {
+        target: 'http://localhost:3000',
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+        configure: (proxy, _options) => {
+          proxy.on('error', (err, _req, _res) => {
+            console.log('proxy error', err);
+          });
+          proxy.on('proxyReq', (proxyReq, req, _res) => {
+            console.log('Sending Request to the Target:', req.method, req.url);
+          });
+          proxy.on('proxyRes', (proxyRes, req, _res) => {
+            console.log('Received Response from the Target:', proxyRes.statusCode, req.url);
+          });
+        },
+      },
+    },
   },
 });

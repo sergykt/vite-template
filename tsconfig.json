@@ -21,14 +21,12 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitReturns": true,
+    "noImplicitAny": true,
 
     /* Aliases */
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*", "./dist/*", ""],
-      "@components/*": ["src/components/*"],
-      "@pages/*": ["src/pages/*"],
-      "@assets/*": ["src/assets/*"],
     }
   },
   "include": ["src"],
