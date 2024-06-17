@@ -40,34 +40,6 @@ export default defineConfig({
   },
   build: {
     minify: 'terser',
-    rollupOptions: {
-      output: {
-        manualChunks(id: string) {
-          if (
-            id.includes('react-router-dom') ||
-            id.includes('react-icons') ||
-            id.includes('formik')
-          ) {
-            return '@react-tools';
-          }
-          if (id.includes('@mui/icons-material')) {
-            return '@mui/icons-material';
-          }
-          if (id.includes('@mui/material')) {
-            return '@mui/material';
-          }
-          if (id.includes('@mui/x-date-pickers')) {
-            return '@mui/x-date-pickers';
-          }
-          if (id.includes('axios')) {
-            return '@axios';
-          }
-          if (id.includes('mobx')) {
-            return '@mobx';
-          }
-        },
-      },
-    },
   },
   server: {
     port: 3010,
