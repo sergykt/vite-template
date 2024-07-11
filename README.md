@@ -13,7 +13,7 @@ npm install
 Run the application:
 
 ```bash
-npm start
+npm run dev
 ```
 
 Open http://localhost:3003 to view it in the browser.
