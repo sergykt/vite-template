@@ -16,4 +16,4 @@ Run the application:
 npm run dev
 ```
 
-Open http://localhost:3003 to view it in the browser.
+Open http://localhost:3010 to view it in the browser.
