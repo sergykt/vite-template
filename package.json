@@ -16,6 +16,12 @@
     "stylelint": "stylelint \"**/*.scss\"",
     "stylelint:fix": "npm run stylelint -- --fix"
   },
+  "lint-staged": {
+    "**/*.{ts,tsx}": [
+      "prettier --list-different",
+      "eslint"
+    ]
+  },
   "dependencies": {
     "axios": "^1.7.2",
     "classnames": "^2.5.1",
@@ -57,6 +63,7 @@
     "eslint-plugin-react-refresh": "^0.4.8",
     "husky": "^9.0.11",
     "jsdom": "^24.1.0",
+    "lint-staged": "^15.2.7",
     "postcss": "^8.4.39",
     "prettier": "^3.3.2",
     "sass": "^1.77.7",
