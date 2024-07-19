@@ -8,7 +8,9 @@ const Button = styled.button`
 
 const Example: FC = () => (
   <div className={styles.box}>
-    <Button className='button'>Example</Button>
+    <Button className='button' data-testid='example'>
+      Example
+    </Button>
   </div>
 );
 

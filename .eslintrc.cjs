@@ -16,6 +16,7 @@ module.exports = {
     'prettier',
     'plugin:@typescript-eslint/recommended-type-checked',
     'plugin:@typescript-eslint/stylistic-type-checked',
+    'plugin:testing-library/react',
   ],
   parser: '@typescript-eslint/parser',
   parserOptions: {
@@ -43,6 +44,10 @@ module.exports = {
     'react/prop-types': 'off',
     'react/require-default-props': 'off',
     'jsx-quotes': ['error', 'prefer-single'],
+    '@typescript-eslint/no-misused-promises': [
+      'error',
+      { checksVoidReturn: { attributes: false } },
+    ],
   },
   overrides: [],
 };
